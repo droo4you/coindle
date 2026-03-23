@@ -1,6 +1,6 @@
 # Coindle
 
-A daily cryptocurrency guessing game powered by **Pyth Network** price feeds. Think Wordle, but for crypto.
+A daily cryptocurrency guessing game powered by **Pyth Network** price feeds. Guess the mystery coin in 6 tries.
 
 Built for the **Pyth Community Hackathon 2026** (March 5 – April 1).
 
@@ -29,7 +29,7 @@ Numeric categories show directional arrows (↑/↓) to help narrow down the ans
 - **Live Prices** — Real-time Pyth Hermes prices refreshed every 30s with green dot indicator
 - **24h Price Change** — Daily % change calculated from historical Pyth data
 - **Hint System** — Reveal secret coin categories (shown as purple on share cards)
-- **Share Results** — Copy emoji grid to clipboard (Wordle-style), supports Web Share API
+- **Share Results** — Copy emoji grid to clipboard, supports Web Share API
 - **Statistics** — Track daily win streak, guess distribution, and win rate
 - **Pyth Feed Transparency** — Post-game card showing exact Pyth feed ID, price tier mapping, and link to verify on Hermes
 - **Dark/Light Theme** — Beige/green light mode, charcoal/blue dark mode

@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Coindle — Daily Crypto Guessing Game",
   description:
-    "Guess the mystery cryptocurrency! A Wordle-style game powered by Pyth price feeds.",
+    "Guess the mystery cryptocurrency! A daily guessing game powered by Pyth price feeds.",
 };
 
 export default function RootLayout({
