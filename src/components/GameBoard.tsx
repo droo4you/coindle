@@ -126,8 +126,8 @@ export default function GameBoard() {
         </button>
       )}
 
-      {/* Easy mode sparkline hint */}
-      {difficulty === "easy" && !gameOver && (
+      {/* Sparkline chart — shown in both modes */}
+      {!gameOver && (
         <div className="bento-card">
           <p
             className="mb-2 text-xs font-medium uppercase tracking-wide"
@@ -165,7 +165,7 @@ export default function GameBoard() {
             >
               {remaining} guess{remaining !== 1 ? "es" : ""} remaining
             </p>
-            {hints.length < 6 && (
+            {difficulty === "easy" && hints.length < 3 && (
               <button
                 onClick={useHint}
                 className="rounded-lg px-3 py-1 text-xs font-semibold transition-colors"
@@ -174,7 +174,7 @@ export default function GameBoard() {
                   color: "white",
                 }}
               >
-                Hint ({hints.length}/6)
+                Hint ({hints.length}/3)
               </button>
             )}
           </div>

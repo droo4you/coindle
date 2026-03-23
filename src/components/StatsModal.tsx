@@ -16,11 +16,15 @@ export default function StatsModal() {
       {/* Trigger button */}
       <button
         onClick={() => setOpen(true)}
-        className="rounded-lg p-2 text-lg transition-colors"
-        style={{ background: "var(--bg-surface-2)" }}
+        className="rounded-lg p-2 transition-colors"
+        style={{ background: "var(--bg-surface-2)", color: "var(--text-muted)" }}
         aria-label="Statistics"
       >
-        📊
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="18" y="3" width="4" height="18" rx="1" />
+          <rect x="10" y="8" width="4" height="13" rx="1" />
+          <rect x="2" y="13" width="4" height="8" rx="1" />
+        </svg>
       </button>
 
       {/* Backdrop + Modal */}

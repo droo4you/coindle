@@ -9,11 +9,15 @@ export default function InfoModal() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="rounded-lg p-2 text-lg transition-colors"
-        style={{ background: "var(--bg-surface-2)" }}
+        className="rounded-lg p-2 transition-colors"
+        style={{ background: "var(--bg-surface-2)", color: "var(--text-muted)" }}
         aria-label="How to play"
       >
-        ℹ️
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4" />
+          <path d="M12 8h.01" />
+        </svg>
       </button>
 
       {open && (

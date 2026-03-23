@@ -197,13 +197,25 @@ export function useGame() {
     [gameOver, guesses, secretCoin, prices, mode, setStats, setDailySavedState]
   );
 
-  // ── Use a hint (reveal one random category) ──────────────
+  // ── Use a hint (reveal one random category, skip already-green) ──
   const useHint = useCallback(() => {
     if (gameOver) return;
+    if (difficulty === "hard") return; // No hints in hard mode
+
     // Find categories not yet hinted
     const hintedIndices = new Set(hints.map((h) => h.categoryIndex));
+
+    // Find categories already guessed correctly (green) in any guess
+    const greenIndices = new Set<number>();
+    for (const g of guesses) {
+      const results = [g.type, g.color, g.launchYear, g.tickerLength, g.priceRange, g.fdvRange];
+      results.forEach((r, i) => {
+        if (r === "green") greenIndices.add(i);
+      });
+    }
+
     const available = CATEGORY_KEYS.map((_, i) => i).filter(
-      (i) => !hintedIndices.has(i)
+      (i) => !hintedIndices.has(i) && !greenIndices.has(i)
     );
     if (available.length === 0) return;
 
@@ -226,7 +238,7 @@ export function useGame() {
       ...prev,
       { categoryIndex: idx, label: labels[idx], value: values[key] },
     ]);
-  }, [gameOver, hints, secretCoin, prices]);
+  }, [gameOver, difficulty, hints, guesses, secretCoin, prices]);
 
   // ── Switch mode ───────────────────────────────────────────────
   const switchMode = useCallback(
