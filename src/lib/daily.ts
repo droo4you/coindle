@@ -26,7 +26,7 @@ export function getDailyCoinIndex(dateStr?: string): number {
 }
 
 /** Launch date — Coindle #1 starts here */
-const LAUNCH_DATE = new Date("2026-03-22T00:00:00Z");
+const LAUNCH_DATE = new Date("2026-03-24T00:00:00Z");
 
 /** Returns the daily puzzle number (1-indexed) */
 export function getDailyPuzzleNumber(dateStr?: string): number {
