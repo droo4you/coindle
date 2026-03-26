@@ -10,6 +10,8 @@ export async function GET() {
       name: "Coindle",
       homeUrl: "https://coindle.xyz",
       iconUrl: "https://coindle.xyz/icon-1024.png",
+      imageUrl: "https://coindle.xyz/image.png",
+      splashImageUrl: "https://coindle.xyz/image.png",
       splashBackgroundColor: "#1A1F2B",
       subtitle: "Daily crypto guessing game",
       description:

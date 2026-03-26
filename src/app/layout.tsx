@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   other: {
     "fc:miniapp": JSON.stringify({
       version: "1",
-      imageUrl: "https://coindle.xyz/opengraph-image.png",
+      imageUrl: "https://coindle.xyz/image.png",
       button: {
         title: "Play Coindle",
         action: {
