@@ -141,6 +141,19 @@ export function useGame() {
         setGameOver(true);
         setWon(isWin);
 
+        // Track game event
+        fetch("/api/analytics", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            mode,
+            difficulty,
+            result: isWin ? "win" : "loss",
+            guesses: newGuesses.length,
+            answer: secretCoin.ticker,
+          }),
+        }).catch(() => {}); // fire-and-forget
+
         // Update daily stats
         if (mode === "daily") {
           const today = getTodayDateString();
