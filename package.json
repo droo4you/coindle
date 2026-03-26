@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@farcaster/miniapp-sdk": "^0.2.3",
     "@remotion/cli": "4.0.438",
     "@remotion/tailwind-v4": "4.0.438",
     "@supabase/supabase-js": "^2.100.0",
