@@ -2,16 +2,21 @@ import { COINS } from "./coins";
 
 /**
  * Deterministic daily coin selection.
- * Uses a simple string hash of the UTC date to pick a coin index.
+ * Uses a proper mixing hash (MurmurHash3-inspired) to avoid sequential clustering.
  */
 function hashDateString(dateStr: string): number {
-  let hash = 0;
+  let h = 0x811c9dc5; // FNV offset basis
   for (let i = 0; i < dateStr.length; i++) {
-    const char = dateStr.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash |= 0; // Convert to 32-bit integer
+    h ^= dateStr.charCodeAt(i);
+    h = Math.imul(h, 0x01000193); // FNV prime
   }
-  return Math.abs(hash);
+  // Extra avalanche mixing
+  h ^= h >>> 16;
+  h = Math.imul(h, 0x85ebca6b);
+  h ^= h >>> 13;
+  h = Math.imul(h, 0xc2b2ae35);
+  h ^= h >>> 16;
+  return Math.abs(h);
 }
 
 export function getTodayDateString(): string {
@@ -19,10 +24,54 @@ export function getTodayDateString(): string {
   return now.toISOString().split("T")[0]; // YYYY-MM-DD in UTC
 }
 
+const COOLDOWN_DAYS = 60;
+
+/**
+ * Build the full sequence from launch date to target date iteratively.
+ * Each day checks the previous 60 resolved days — no recursion.
+ */
+const resolvedCache = new Map<string, number>();
+
+function ensureResolvedUpTo(targetDateStr: string): void {
+  // Find the earliest date we need (target - COOLDOWN_DAYS or launch, whichever is later)
+  const target = new Date(targetDateStr + "T00:00:00Z");
+  const launch = new Date("2026-03-24T00:00:00Z");
+  const windowStart = new Date(target);
+  windowStart.setUTCDate(windowStart.getUTCDate() - COOLDOWN_DAYS);
+  const start = windowStart > launch ? windowStart : launch;
+
+  // Walk forward day by day, resolving each
+  const cursor = new Date(start);
+  while (cursor <= target) {
+    const ds = cursor.toISOString().split("T")[0];
+    if (!resolvedCache.has(ds)) {
+      // Collect recent indices from the previous 60 days
+      const recent = new Set<number>();
+      for (let i = 1; i <= COOLDOWN_DAYS; i++) {
+        const prev = new Date(cursor);
+        prev.setUTCDate(prev.getUTCDate() - i);
+        const prevIdx = resolvedCache.get(prev.toISOString().split("T")[0]);
+        if (prevIdx !== undefined) recent.add(prevIdx);
+      }
+
+      let idx = hashDateString(ds) % COINS.length;
+      let attempts = 0;
+      while (recent.has(idx) && attempts < COINS.length) {
+        idx = (idx + 1) % COINS.length;
+        attempts++;
+      }
+      resolvedCache.set(ds, idx);
+    }
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+}
+
 export function getDailyCoinIndex(dateStr?: string): number {
   const date = dateStr ?? getTodayDateString();
-  const hash = hashDateString(date);
-  return hash % COINS.length;
+  if (!resolvedCache.has(date)) {
+    ensureResolvedUpTo(date);
+  }
+  return resolvedCache.get(date)!;
 }
 
 /** Launch date — Coindle #1 starts here */
