@@ -4,6 +4,7 @@ import type { Coin, GameMode } from "@/lib/types";
 import type { LivePrices } from "@/hooks/useLivePrices";
 import { MAX_GUESSES } from "@/lib/constants";
 import CountdownTimer from "./CountdownTimer";
+import ReportButton from "./ReportButton";
 
 interface RevealCardProps {
   won: boolean;
@@ -154,6 +155,11 @@ export default function RevealCard({
             View Guesses →
           </button>
         )}
+      </div>
+
+      {/* Report incorrect data */}
+      <div className="mt-3 flex justify-center">
+        <ReportButton coin={secretCoin} />
       </div>
     </div>
   );

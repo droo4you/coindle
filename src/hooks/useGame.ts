@@ -24,6 +24,7 @@ export interface HintReveal {
 }
 import { useLocalStorage } from "./useLocalStorage";
 import { useLivePrices, type LivePrices } from "./useLivePrices";
+import { playFlip, playGreen, playWin, playLoss, playHint } from "@/lib/sounds";
 
 const EMPTY_STATS: DailyStats = {
   played: 0,
@@ -134,12 +135,24 @@ export function useGame() {
       const newGuesses = [...guesses, result];
       setGuesses(newGuesses);
 
+      // Sound: flip for each cell, green ding for correct categories
+      playFlip();
+      const greens = [result.type, result.color, result.launchYear, result.tickerLength, result.priceRange, result.fdvRange]
+        .filter((r) => r === "green").length;
+      if (greens >= 3) setTimeout(() => playGreen(), 300);
+
       const isWin = coin.ticker === secretCoin.ticker;
       const isLoss = newGuesses.length >= MAX_GUESSES && !isWin;
 
       if (isWin || isLoss) {
         setGameOver(true);
         setWon(isWin);
+        setTimeout(() => isWin ? playWin() : playLoss(), 600);
+
+        // Ensure anonymous user ID exists
+        if (!localStorage.getItem("coindle-uid")) {
+          localStorage.setItem("coindle-uid", crypto.randomUUID());
+        }
 
         // Track game event
         fetch("/api/analytics", {
@@ -151,8 +164,28 @@ export function useGame() {
             result: isWin ? "win" : "loss",
             guesses: newGuesses.length,
             answer: secretCoin.ticker,
+            userId: localStorage.getItem("coindle-uid"),
           }),
         }).catch(() => {}); // fire-and-forget
+
+        // Submit to leaderboard (daily mode only)
+        if (mode === "daily") {
+          const uid = localStorage.getItem("coindle-uid");
+          const username = localStorage.getItem("coindle-username");
+          if (uid && username) {
+            fetch("/api/leaderboard", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                userId: uid,
+                username,
+                puzzleNumber: getDailyPuzzleNumber(),
+                guesses: newGuesses.length,
+                won: isWin,
+              }),
+            }).catch(() => {});
+          }
+        }
 
         // Update daily stats
         if (mode === "daily") {
@@ -251,6 +284,7 @@ export function useGame() {
       ...prev,
       { categoryIndex: idx, label: labels[idx], value: values[key] },
     ]);
+    playHint();
   }, [gameOver, difficulty, hints, guesses, secretCoin, prices]);
 
   // ── Switch mode ───────────────────────────────────────────────

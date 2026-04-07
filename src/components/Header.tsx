@@ -4,6 +4,7 @@ import { useTheme } from "@/hooks/useTheme";
 import { useGameContext } from "@/context/GameContext";
 import InfoModal from "./InfoModal";
 import StatsModal from "./StatsModal";
+import LeaderboardModal from "./LeaderboardModal";
 
 export default function Header() {
   const { dark, toggle } = useTheme();
@@ -19,6 +20,7 @@ export default function Header() {
         </h1>
 
         <div className="flex items-center gap-2">
+          <LeaderboardModal />
           <StatsModal />
           <InfoModal />
           <button

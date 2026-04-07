@@ -9,24 +9,21 @@ const supabase = createClient(
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { mode, difficulty, result, guesses, answer, platform, userId } = body;
+    const { ticker, category, message, userId } = body;
 
-    if (!mode || !difficulty || !result || !guesses || !answer) {
+    if (!ticker || !category) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
-    const { error } = await supabase.from("game_events").insert({
-      mode,
-      difficulty,
-      result,
-      guesses,
-      answer,
-      platform: platform || "web",
+    const { error } = await supabase.from("reports").insert({
+      ticker,
+      category,
+      message: message || null,
       user_id: userId || null,
     });
 
     if (error) {
-      console.error("Supabase insert error:", error);
+      console.error("Report insert error:", error);
       return NextResponse.json({ error: "DB error" }, { status: 500 });
     }
 
@@ -34,4 +31,18 @@ export async function POST(req: Request) {
   } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
+}
+
+export async function GET() {
+  const { data, error } = await supabase
+    .from("reports")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json({ reports: data });
 }
