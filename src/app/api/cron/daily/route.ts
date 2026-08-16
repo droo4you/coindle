@@ -1,7 +1,37 @@
 import { NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 import { fetchAllPrices } from "@/lib/pyth";
 import { setCachedPrices } from "@/lib/cache";
 import { getTodayDateString } from "@/lib/daily";
+
+/**
+ * Touch Postgres so Supabase doesn't pause the project for inactivity.
+ *
+ * Nothing else in the app queries the database on a schedule — analytics and
+ * leaderboard writes only happen when someone finishes a game. In April 2026
+ * traffic stopped, no query ran for ~7 days, and the free-tier project was
+ * paused, which 500'd /api/leaderboard and /api/analytics/stats until it was
+ * manually restored.
+ *
+ * Never throws: keeping the daily price refresh working matters more than
+ * this succeeding, and a failure here is reported rather than fatal.
+ */
+async function keepDatabaseWarm(): Promise<string> {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_KEY;
+  if (!url || !key) return "skipped (no credentials)";
+
+  try {
+    const supabase = createClient(url, key);
+    const { error } = await supabase
+      .from("game_events")
+      .select("id")
+      .limit(1);
+    return error ? `failed (${error.message})` : "ok";
+  } catch (e) {
+    return `failed (${e instanceof Error ? e.message : String(e)})`;
+  }
+}
 
 /**
  * Vercel Cron: runs at midnight UTC daily.
@@ -15,6 +45,9 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // Run before the Pyth fetch so a Hermes outage can't skip the DB touch.
+  const dbWarm = await keepDatabaseWarm();
+
   try {
     const dateStr = getTodayDateString();
     const prices = await fetchAllPrices();
@@ -22,7 +55,7 @@ export async function GET(request: Request) {
     const coinCount = Object.keys(prices).length;
     if (coinCount === 0) {
       return NextResponse.json(
-        { error: "No prices fetched from Hermes" },
+        { error: "No prices fetched from Hermes", dbWarm },
         { status: 502 }
       );
     }
@@ -33,11 +66,12 @@ export async function GET(request: Request) {
       ok: true,
       date: dateStr,
       coinsUpdated: coinCount,
+      dbWarm,
     });
   } catch (error) {
     console.error("Cron daily error:", error);
     return NextResponse.json(
-      { error: "Failed to update prices" },
+      { error: "Failed to update prices", dbWarm },
       { status: 500 }
     );
   }
