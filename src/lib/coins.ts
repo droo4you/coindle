@@ -86,7 +86,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2017,
     tickerLength: 3,
-    fdvBucket: "10B-100B",
+    fdvBucket: "1B-10B",
   },
   {
     name: "Avalanche",
@@ -130,7 +130,7 @@ export const COINS: Coin[] = [
     primaryColor: "Green",
     launchYear: 2022,
     tickerLength: 3,
-    fdvBucket: "1B-10B",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Sui",
@@ -163,7 +163,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2018,
     tickerLength: 3,
-    fdvBucket: "10B-100B",
+    fdvBucket: "1B-10B",
   },
   {
     name: "Internet Computer",
@@ -185,7 +185,7 @@ export const COINS: Coin[] = [
     primaryColor: "Black",
     launchYear: 2024,
     tickerLength: 1,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "Cosmos",
@@ -196,7 +196,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2019,
     tickerLength: 4,
-    fdvBucket: "1B-10B",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Sei",
@@ -218,7 +218,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2021,
     tickerLength: 3,
-    fdvBucket: "1B-10B",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Algorand",
@@ -262,7 +262,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2020,
     tickerLength: 4,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "Celo",
@@ -273,7 +273,7 @@ export const COINS: Coin[] = [
     primaryColor: "Yellow",
     launchYear: 2020,
     tickerLength: 4,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "Kaspa",
@@ -284,7 +284,7 @@ export const COINS: Coin[] = [
     primaryColor: "Green",
     launchYear: 2021,
     tickerLength: 3,
-    fdvBucket: "1B-10B",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Monad",
@@ -295,7 +295,7 @@ export const COINS: Coin[] = [
     primaryColor: "Purple",
     launchYear: 2025,
     tickerLength: 3,
-    fdvBucket: "100M-1B",
+    fdvBucket: "1B-10B",
   },
   {
     name: "Berachain",
@@ -306,7 +306,7 @@ export const COINS: Coin[] = [
     primaryColor: "Red",
     launchYear: 2025,
     tickerLength: 4,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   // ═══════════════════════ L2s ═══════════════════════
   {
@@ -318,7 +318,7 @@ export const COINS: Coin[] = [
     primaryColor: "Purple",
     launchYear: 2019,
     tickerLength: 3,
-    fdvBucket: "1B-10B",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Optimism",
@@ -329,7 +329,7 @@ export const COINS: Coin[] = [
     primaryColor: "Red",
     launchYear: 2021,
     tickerLength: 2,
-    fdvBucket: "1B-10B",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Arbitrum",
@@ -340,7 +340,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2021,
     tickerLength: 3,
-    fdvBucket: "1B-10B",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Starknet",
@@ -373,7 +373,7 @@ export const COINS: Coin[] = [
     primaryColor: "Purple",
     launchYear: 2024,
     tickerLength: 4,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   // ═══════════════════════ DeFi Tokens ═══════════════════════
   {
@@ -385,7 +385,7 @@ export const COINS: Coin[] = [
     primaryColor: "Green",
     launchYear: 2024,
     tickerLength: 4,
-    fdvBucket: "1B-10B",
+    fdvBucket: "10B-100B",
   },
   {
     name: "Uniswap",
@@ -451,7 +451,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2021,
     tickerLength: 3,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "dYdX",
@@ -484,7 +484,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2020,
     tickerLength: 3,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "Pendle",
@@ -506,7 +506,7 @@ export const COINS: Coin[] = [
     primaryColor: "Green",
     launchYear: 2024,
     tickerLength: 3,
-    fdvBucket: "100M-1B",
+    fdvBucket: "1B-10B",
   },
   {
     name: "Raydium",
@@ -528,7 +528,7 @@ export const COINS: Coin[] = [
     primaryColor: "Pink",
     launchYear: 2020,
     tickerLength: 5,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "Ethena",
@@ -539,7 +539,7 @@ export const COINS: Coin[] = [
     primaryColor: "Purple",
     launchYear: 2024,
     tickerLength: 3,
-    fdvBucket: "100M-1B",
+    fdvBucket: "1B-10B",
   },
   {
     name: "Rocket Pool",
@@ -550,7 +550,7 @@ export const COINS: Coin[] = [
     primaryColor: "Orange",
     launchYear: 2021,
     tickerLength: 3,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "Jito",
@@ -572,7 +572,7 @@ export const COINS: Coin[] = [
     primaryColor: "Orange",
     launchYear: 2022,
     tickerLength: 4,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "Aerodrome",
@@ -594,7 +594,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2024,
     tickerLength: 6,
-    fdvBucket: "100M-1B",
+    fdvBucket: "1B-10B",
   },
   {
     name: "Aevo",
@@ -627,7 +627,7 @@ export const COINS: Coin[] = [
     primaryColor: "Green",
     launchYear: 2024,
     tickerLength: 4,
-    fdvBucket: "10M-100M",
+    fdvBucket: "100M-1B",
   },
   {
     name: "1inch",
@@ -638,7 +638,7 @@ export const COINS: Coin[] = [
     primaryColor: "Black",
     launchYear: 2020,
     tickerLength: 5,
-    fdvBucket: "10M-100M",
+    fdvBucket: "100M-1B",
   },
   {
     name: "PancakeSwap",
@@ -671,7 +671,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2024,
     tickerLength: 4,
-    fdvBucket: "10M-100M",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Sky Protocol",
@@ -682,7 +682,7 @@ export const COINS: Coin[] = [
     primaryColor: "Yellow",
     launchYear: 2024,
     tickerLength: 3,
-    fdvBucket: "10M-100M",
+    fdvBucket: "1B-10B",
   },
   // ═══════════════════════ Oracles / Infra ═══════════════════════
   {
@@ -694,7 +694,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2017,
     tickerLength: 4,
-    fdvBucket: "10B-100B",
+    fdvBucket: "1B-10B",
   },
   {
     name: "The Graph",
@@ -727,7 +727,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2019,
     tickerLength: 3,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "Arweave",
@@ -804,7 +804,7 @@ export const COINS: Coin[] = [
     primaryColor: "Purple",
     launchYear: 2023,
     tickerLength: 3,
-    fdvBucket: "1B-10B",
+    fdvBucket: "100M-1B",
   },
   {
     name: "ORDI",
@@ -815,7 +815,7 @@ export const COINS: Coin[] = [
     primaryColor: "Orange",
     launchYear: 2023,
     tickerLength: 4,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "Ethereum Name Service",
@@ -837,7 +837,7 @@ export const COINS: Coin[] = [
     primaryColor: "Purple",
     launchYear: 2024,
     tickerLength: 1,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "LayerZero",
@@ -859,7 +859,7 @@ export const COINS: Coin[] = [
     primaryColor: "Orange",
     launchYear: 2024,
     tickerLength: 3,
-    fdvBucket: "10M-100M",
+    fdvBucket: "1B-10B",
   },
   {
     name: "Arkham",
@@ -870,19 +870,11 @@ export const COINS: Coin[] = [
     primaryColor: "Orange",
     launchYear: 2023,
     tickerLength: 4,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
-  {
-    name: "Story Protocol",
-    ticker: "IP",
-    pythFeedId: "0xb620ba83044577029da7e4ded7a2abccf8e6afc2a0d4d26d89ccdd39ec109025",
-    logoUrl: "https://coin-images.coingecko.com/coins/images/44835/large/story.jpg",
-    type: "Other",
-    primaryColor: "Orange",
-    launchYear: 2025,
-    tickerLength: 2,
-    fdvBucket: "100M-1B",
-  },
+  // Story Protocol (IP) removed 2026-08-16 — Pyth marked its feed
+  // "DEPRECATED FEED - STORY PROTOCOL", so prices would eventually stop
+  // updating and break any puzzle that selected it.
   {
     name: "Kaito",
     ticker: "KAITO",
@@ -914,7 +906,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2024,
     tickerLength: 3,
-    fdvBucket: "10M-100M",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Animecoin",
@@ -925,7 +917,7 @@ export const COINS: Coin[] = [
     primaryColor: "Pink",
     launchYear: 2025,
     tickerLength: 5,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   // ═══════════════════════ Gaming ═══════════════════════
   {
@@ -981,7 +973,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2020,
     tickerLength: 4,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "Chiliz",
@@ -1026,7 +1018,7 @@ export const COINS: Coin[] = [
     primaryColor: "Orange",
     launchYear: 2020,
     tickerLength: 6,
-    fdvBucket: "1B-10B",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Bittensor",
@@ -1092,7 +1084,7 @@ export const COINS: Coin[] = [
     primaryColor: "Green",
     launchYear: 2024,
     tickerLength: 5,
-    fdvBucket: "10M-100M",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Griffain",
@@ -1226,7 +1218,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2024,
     tickerLength: 5,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "TRUMP",
@@ -1248,7 +1240,7 @@ export const COINS: Coin[] = [
     primaryColor: "Yellow",
     launchYear: 2025,
     tickerLength: 7,
-    fdvBucket: "100M-1B",
+    fdvBucket: "10M-100M",
   },
   {
     name: "Vine",
@@ -1259,7 +1251,7 @@ export const COINS: Coin[] = [
     primaryColor: "Green",
     launchYear: 2025,
     tickerLength: 4,
-    fdvBucket: "10M-100M",
+    fdvBucket: "<10M",
   },
   {
     name: "Moodeng",
@@ -1314,7 +1306,7 @@ export const COINS: Coin[] = [
     primaryColor: "Purple",
     launchYear: 2024,
     tickerLength: 3,
-    fdvBucket: "10M-100M",
+    fdvBucket: "<10M",
   },
   {
     name: "Ponke",
@@ -1325,7 +1317,7 @@ export const COINS: Coin[] = [
     primaryColor: "Orange",
     launchYear: 2023,
     tickerLength: 5,
-    fdvBucket: "10M-100M",
+    fdvBucket: "<10M",
   },
   {
     name: "Cat in a Dogs World",
@@ -1358,7 +1350,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2024,
     tickerLength: 5,
-    fdvBucket: "100M-1B",
+    fdvBucket: "1B-10B",
   },
   {
     name: "Turbo",
@@ -1380,7 +1372,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2024,
     tickerLength: 7,
-    fdvBucket: "10M-100M",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Degen",
@@ -1480,7 +1472,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2023,
     tickerLength: 5,
-    fdvBucket: "100M-1B",
+    fdvBucket: "1B-10B",
   },
   {
     name: "Usual Money",
@@ -1502,7 +1494,7 @@ export const COINS: Coin[] = [
     primaryColor: "Yellow",
     launchYear: 2019,
     tickerLength: 4,
-    fdvBucket: "100M-1B",
+    fdvBucket: "1B-10B",
   },
   // ═══════════════════════ Other (LSTs, misc) ═══════════════════════
   {
@@ -1514,7 +1506,7 @@ export const COINS: Coin[] = [
     primaryColor: "Orange",
     launchYear: 2019,
     tickerLength: 4,
-    fdvBucket: "10B-100B",
+    fdvBucket: "1B-10B",
   },
   {
     name: "Lido Staked ETH",
@@ -1536,7 +1528,7 @@ export const COINS: Coin[] = [
     primaryColor: "Orange",
     launchYear: 2021,
     tickerLength: 4,
-    fdvBucket: "1B-10B",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Coinbase ETH",
@@ -1547,7 +1539,7 @@ export const COINS: Coin[] = [
     primaryColor: "Blue",
     launchYear: 2022,
     tickerLength: 5,
-    fdvBucket: "1B-10B",
+    fdvBucket: "100M-1B",
   },
   {
     name: "Ether.fi",
@@ -1581,6 +1573,107 @@ export const COINS: Coin[] = [
     launchYear: 2024,
     tickerLength: 3,
     fdvBucket: "10M-100M",
+  },
+
+  // ═══════════════════════ Added 2026-08-16 ═══════════════════════
+  {
+    name: "Monero",
+    ticker: "XMR",
+    pythFeedId: "0x46b8cc9347f04391764a0361e0b17c3ba394b001e7c304f7650f6376e37c321d",
+    logoUrl: "https://coin-images.coingecko.com/coins/images/69/large/monero_logo.png",
+    type: "L1 Blockchain",
+    primaryColor: "Orange",
+    launchYear: 2014,
+    tickerLength: 3,
+    fdvBucket: "1B-10B",
+  },
+  {
+    name: "Tezos",
+    ticker: "XTZ",
+    pythFeedId: "0x0affd4b8ad136a21d79bc82450a325ee12ff55a235abc242666e423b8bcffd03",
+    logoUrl: "https://coin-images.coingecko.com/coins/images/976/large/Tezos-logo.png",
+    type: "L1 Blockchain",
+    primaryColor: "Blue",
+    launchYear: 2018,
+    tickerLength: 3,
+    fdvBucket: "100M-1B",
+  },
+  {
+    name: "Zcash",
+    ticker: "ZEC",
+    pythFeedId: "0xbe9b59d178f0d6a97ab4c343bff2aa69caa1eaae3e9048a65788c529b125bb24",
+    logoUrl: "https://coin-images.coingecko.com/coins/images/486/large/Brandmark-Yellow_%281%29.png",
+    type: "L1 Blockchain",
+    primaryColor: "Yellow",
+    launchYear: 2016,
+    tickerLength: 3,
+    fdvBucket: "1B-10B",
+  },
+  {
+    name: "Fartcoin",
+    ticker: "FARTCOIN",
+    pythFeedId: "0x58cd29ef0e714c5affc44f269b2c1899a52da4169d7acc147b9da692e6953608",
+    logoUrl: "https://coin-images.coingecko.com/coins/images/50891/large/fart.jpg",
+    type: "Memecoin",
+    primaryColor: "Black",
+    launchYear: 2024,
+    tickerLength: 8,
+    fdvBucket: "100M-1B",
+  },
+  {
+    name: "Popcat",
+    ticker: "POPCAT",
+    pythFeedId: "0xb9312a7ee50e189ef045aa3c7842e099b061bd9bdc99ac645956c3b660dc8cce",
+    logoUrl: "https://coin-images.coingecko.com/coins/images/33760/large/image.jpg",
+    type: "Memecoin",
+    primaryColor: "Red",
+    launchYear: 2023,
+    tickerLength: 6,
+    fdvBucket: "10M-100M",
+  },
+  {
+    name: "Pump.fun",
+    ticker: "PUMP",
+    pythFeedId: "0x7a01fca212788bba7c5bf8c9efd576a8a722f070d2c17596ff7bb609b8d5c3b9",
+    logoUrl: "https://coin-images.coingecko.com/coins/images/67164/large/pump.jpg",
+    type: "Other",
+    primaryColor: "Green",
+    launchYear: 2025,
+    tickerLength: 4,
+    fdvBucket: "1B-10B",
+  },
+  {
+    name: "Aster",
+    ticker: "ASTER",
+    pythFeedId: "0xa903b5a82cb572397e3d47595d2889cf80513f5b4cf7a36b513ae10cc8b1e338",
+    logoUrl: "https://coin-images.coingecko.com/coins/images/69040/large/_ASTER.png",
+    type: "DeFi Token",
+    primaryColor: "Black",
+    launchYear: 2025,
+    tickerLength: 5,
+    fdvBucket: "1B-10B",
+  },
+  {
+    name: "Plume",
+    ticker: "PLUME",
+    pythFeedId: "0xded84d57dbf810bf86b97936f12e1f01b8d6d01c251a4d6eac592147988d475c",
+    logoUrl: "https://coin-images.coingecko.com/coins/images/53623/large/PLUME_%281%29.png",
+    type: "RWA",
+    primaryColor: "Black",
+    launchYear: 2025,
+    tickerLength: 5,
+    fdvBucket: "100M-1B",
+  },
+  {
+    name: "Linea",
+    ticker: "LINEA",
+    pythFeedId: "0x49e50653755fbf8018ab65a07be2f208ac8c4bdfc43200934304ca17ee663cab",
+    logoUrl: "https://coin-images.coingecko.com/coins/images/68507/large/linea-logo.jpeg",
+    type: "L2",
+    primaryColor: "Blue",
+    launchYear: 2025,
+    tickerLength: 5,
+    fdvBucket: "100M-1B",
   },
 ];
 
