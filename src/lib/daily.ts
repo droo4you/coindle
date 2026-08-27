@@ -56,7 +56,10 @@ function ensureResolvedUpTo(targetDateStr: string): void {
 
       let idx = hashDateString(ds) % COINS.length;
       let attempts = 0;
-      while (recent.has(idx) && attempts < COINS.length) {
+      while (
+        (recent.has(idx) || COINS[idx].retired) &&
+        attempts < COINS.length
+      ) {
         idx = (idx + 1) % COINS.length;
         attempts++;
       }
@@ -90,7 +93,7 @@ export function getRandomCoinIndex(excludeIndex?: number): number {
   let index: number;
   do {
     index = Math.floor(Math.random() * COINS.length);
-  } while (index === excludeIndex);
+  } while (index === excludeIndex || COINS[index].retired);
   return index;
 }
 

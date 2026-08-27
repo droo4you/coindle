@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { COINS } from "@/lib/coins";
-import { HERMES_BASE_URL } from "@/lib/constants";
 
 interface LivePrice {
   price: number;
@@ -16,7 +15,9 @@ const POLL_INTERVAL = 30_000; // 30 seconds
 const MAX_IDS_PER_REQUEST = 50; // Keep URL reasonable
 
 /**
- * Client-side hook that polls Pyth Hermes directly for live prices.
+ * Client-side hook that polls /api/live for live prices, which proxies Pyth
+ * Hermes server-side (Hermes now requires an API key that can't ship to the
+ * browser).
  * Also fetches 24h-ago prices once to compute daily % change.
  * Only fetches prices for tickers in the `tickers` set.
  */
@@ -47,9 +48,7 @@ export function useLivePrices(tickers: string[]) {
     params.append("parsed", "true");
 
     try {
-      const res = await fetch(
-        `${HERMES_BASE_URL}/v2/updates/price/latest?${params.toString()}`
-      );
+      const res = await fetch(`/api/live?${params.toString()}`);
       if (!res.ok) return;
 
       const data = await res.json();
@@ -97,7 +96,7 @@ export function useLivePrices(tickers: string[]) {
 
     try {
       const res = await fetch(
-        `${HERMES_BASE_URL}/v2/updates/price/${timestamp24hAgo}?${params.toString()}`
+        `/api/live?${params.toString()}&at=${timestamp24hAgo}`
       );
       if (!res.ok) return;
 

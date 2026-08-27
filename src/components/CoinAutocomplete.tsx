@@ -25,8 +25,10 @@ export default function CoinAutocomplete({
   const filtered = query.length > 0
     ? COINS.filter(
         (c) =>
-          c.ticker.toLowerCase().includes(query.toLowerCase()) ||
-          c.name.toLowerCase().includes(query.toLowerCase())
+          // Retired feeds have no price, so they can't be guessed.
+          !c.retired &&
+          (c.ticker.toLowerCase().includes(query.toLowerCase()) ||
+            c.name.toLowerCase().includes(query.toLowerCase()))
       ).slice(0, 20)
     : [];
 

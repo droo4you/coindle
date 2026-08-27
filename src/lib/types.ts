@@ -42,6 +42,12 @@ export interface Coin {
   launchYear: number;
   tickerLength: number;
   fdvBucket: FDVBucket;
+  /**
+   * Pyth stopped publishing this feed. The entry stays in COINS so that
+   * COINS.length — and therefore every past daily answer — is unchanged, but
+   * it is skipped for prices, daily selection and guessing.
+   */
+  retired?: boolean;
 }
 
 export type MatchResult = "green" | "yellow" | "red";

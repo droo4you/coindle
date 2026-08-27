@@ -600,6 +600,7 @@ export const COINS: Coin[] = [
     name: "Aevo",
     ticker: "AEVO",
     pythFeedId: "0x104e4d9ba218610b9af53c887f9fcb7396615259867a5a4b5983a65802aeee0b",
+    retired: true, // Pyth retired this feed
     logoUrl: "https://coin-images.coingecko.com/coins/images/36080/large/aevo.png",
     type: "DeFi Token",
     primaryColor: "Red",
@@ -912,6 +913,7 @@ export const COINS: Coin[] = [
     name: "Animecoin",
     ticker: "ANIME",
     pythFeedId: "0x45b75908a1965a86080a26d9f31ab69d045d4dda73d1394e0d3693ce00d40e6f",
+    retired: true, // Pyth retired this feed
     logoUrl: "https://coin-images.coingecko.com/coins/images/53406/large/anime.jpg",
     type: "Other",
     primaryColor: "Pink",
@@ -1090,6 +1092,7 @@ export const COINS: Coin[] = [
     name: "Griffain",
     ticker: "GRIFFAIN",
     pythFeedId: "0x159b86e6ca1a2a6bd613953d1cd46008bd1200284bebc3e4c7cc36c3aa3edda9",
+    retired: true, // Pyth retired this feed
     logoUrl: "https://coin-images.coingecko.com/coins/images/41917/large/griffain.jpg",
     type: "AI Token",
     primaryColor: "Orange",
@@ -1246,6 +1249,7 @@ export const COINS: Coin[] = [
     name: "Vine",
     ticker: "VINE",
     pythFeedId: "0x22a54087e443d4d1db5bd018923337c72c818a99ca521ead71f72fa058f1ccf1",
+    retired: true, // Pyth retired this feed
     logoUrl: "https://coin-images.coingecko.com/coins/images/53854/large/vine.jpg",
     type: "Memecoin",
     primaryColor: "Green",
@@ -1523,6 +1527,7 @@ export const COINS: Coin[] = [
     name: "Rocket Pool ETH",
     ticker: "RETH",
     pythFeedId: "0xa0255134973f4fdf2f8f7808354274a3b1ebc6ee438be898d045e8b56ba1fe13",
+    retired: true, // Pyth retired this feed
     logoUrl: "https://coin-images.coingecko.com/coins/images/20764/large/reth.png",
     type: "Other",
     primaryColor: "Orange",

@@ -4,14 +4,21 @@ import type { CachedPrices } from "./types";
 import { getPriceTier } from "./constants";
 
 /**
- * Auth headers for Pyth Pro API (higher rate limits).
+ * Auth headers for Pyth Hermes.
+ *
+ * Hermes used to serve unauthenticated requests and the key was optional, for
+ * higher rate limits. It now rejects them with 401, so the key is required.
+ * The accepted scheme is `Authorization: Bearer` — the `X-Api-Key` header this
+ * used to send is also rejected with 401.
  */
 function getAuthHeaders(): HeadersInit {
   const apiKey = process.env.PYTH_API_KEY;
-  if (apiKey) {
-    return { "X-Api-Key": apiKey };
+  if (!apiKey) {
+    throw new Error(
+      "PYTH_API_KEY is not set — Hermes rejects unauthenticated requests with 401"
+    );
   }
-  return {};
+  return { Authorization: `Bearer ${apiKey}` };
 }
 
 /**
@@ -25,11 +32,14 @@ function parsePythPrice(priceData: {
 }
 
 /**
- * Fetch latest prices for ALL coins in a single batch from Pyth Hermes.
- * Uses the batch endpoint — one HTTP call for all 141 feeds.
+ * Fetch latest prices for all live coins in a single batch from Pyth Hermes.
+ *
+ * Retired feeds must be filtered out: Hermes fails the *entire* request if any
+ * requested id is one it no longer publishes, so a single dead feed would take
+ * every price down with it.
  */
 export async function fetchAllPrices(): Promise<CachedPrices> {
-  const ids = COINS.map((c) => c.pythFeedId);
+  const ids = COINS.filter((c) => !c.retired).map((c) => c.pythFeedId);
 
   const params = new URLSearchParams();
   ids.forEach((id) => params.append("ids[]", id));
