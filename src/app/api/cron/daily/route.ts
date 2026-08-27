@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { getSupabase } from "@/lib/supabase";
 import { fetchAllPrices } from "@/lib/pyth";
-import { setCachedPrices } from "@/lib/cache";
+import { setCachedPrices, sweepExpiredCache } from "@/lib/cache";
 import { getTodayDateString } from "@/lib/daily";
 
 /**
@@ -17,12 +17,10 @@ import { getTodayDateString } from "@/lib/daily";
  * this succeeding, and a failure here is reported rather than fatal.
  */
 async function keepDatabaseWarm(): Promise<string> {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_KEY;
-  if (!url || !key) return "skipped (no credentials)";
+  const supabase = getSupabase();
+  if (!supabase) return "skipped (no credentials)";
 
   try {
-    const supabase = createClient(url, key);
     const { error } = await supabase
       .from("game_events")
       .select("id")
@@ -47,6 +45,8 @@ export async function GET(request: Request) {
 
   // Run before the Pyth fetch so a Hermes outage can't skip the DB touch.
   const dbWarm = await keepDatabaseWarm();
+  // Expired cache rows would otherwise accumulate forever on the free tier.
+  const cacheSwept = await sweepExpiredCache();
 
   try {
     const dateStr = getTodayDateString();
@@ -55,7 +55,7 @@ export async function GET(request: Request) {
     const coinCount = Object.keys(prices).length;
     if (coinCount === 0) {
       return NextResponse.json(
-        { error: "No prices fetched from Hermes", dbWarm },
+        { error: "No prices fetched from Hermes", dbWarm, cacheSwept },
         { status: 502 }
       );
     }
@@ -67,11 +67,12 @@ export async function GET(request: Request) {
       date: dateStr,
       coinsUpdated: coinCount,
       dbWarm,
+      cacheSwept,
     });
   } catch (error) {
     console.error("Cron daily error:", error);
     return NextResponse.json(
-      { error: "Failed to update prices", dbWarm },
+      { error: "Failed to update prices", dbWarm, cacheSwept },
       { status: 500 }
     );
   }

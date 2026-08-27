@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY!
-);
+import { getSupabase } from "@/lib/supabase";
 
 export async function GET() {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json(
+      { error: "Stats are temporarily unavailable" },
+      { status: 503 }
+    );
+  }
+
   const [{ data, error }, { data: reports }] = await Promise.all([
     supabase
       .from("game_events")
@@ -19,8 +22,12 @@ export async function GET() {
       .limit(20),
   ]);
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error || !data) {
+    console.error("Stats read error:", error);
+    return NextResponse.json(
+      { error: "Stats are temporarily unavailable" },
+      { status: 503 }
+    );
   }
 
   const total = data.length;

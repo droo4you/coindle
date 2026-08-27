@@ -1,10 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY!
-);
+import { getSupabase } from "@/lib/supabase";
 
 export async function POST(req: Request) {
   try {
@@ -13,6 +8,14 @@ export async function POST(req: Request) {
 
     if (!ticker || !category) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+    }
+
+    const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json(
+        { error: "Reports are temporarily unavailable" },
+        { status: 503 }
+      );
     }
 
     const { error } = await supabase.from("reports").insert({
@@ -34,6 +37,14 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json(
+      { reports: [], error: "Reports are temporarily unavailable" },
+      { status: 503 }
+    );
+  }
+
   const { data, error } = await supabase
     .from("reports")
     .select("*")
@@ -41,7 +52,11 @@ export async function GET() {
     .limit(50);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("Reports read error:", error);
+    return NextResponse.json(
+      { reports: [], error: "Reports are temporarily unavailable" },
+      { status: 503 }
+    );
   }
 
   return NextResponse.json({ reports: data });

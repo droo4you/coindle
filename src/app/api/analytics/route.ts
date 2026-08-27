@@ -1,10 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY!
-);
+import { getSupabase } from "@/lib/supabase";
 
 export async function POST(req: Request) {
   try {
@@ -14,6 +9,11 @@ export async function POST(req: Request) {
     if (!mode || !difficulty || !result || !guesses || !answer) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
+
+    // Analytics are fire-and-forget: if the database is gone, the game
+    // still finished fine as far as the player is concerned.
+    const supabase = getSupabase();
+    if (!supabase) return NextResponse.json({ ok: true, recorded: false });
 
     const { error } = await supabase.from("game_events").insert({
       mode,
@@ -27,10 +27,10 @@ export async function POST(req: Request) {
 
     if (error) {
       console.error("Supabase insert error:", error);
-      return NextResponse.json({ error: "DB error" }, { status: 500 });
+      return NextResponse.json({ ok: true, recorded: false });
     }
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, recorded: true });
   } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }

@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { getSupabase } from "@/lib/supabase";
 
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY!
-);
+/** Shape the client expects even when the database is unreachable. */
+const EMPTY = { entries: [] as unknown[] };
 
 export async function POST(req: Request) {
   try {
@@ -12,6 +10,14 @@ export async function POST(req: Request) {
 
     if (!userId || !username || !puzzleNumber || !guesses) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+    }
+
+    const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json(
+        { error: "Leaderboard is temporarily unavailable" },
+        { status: 503 }
+      );
     }
 
     const { error } = await supabase.from("leaderboard").upsert(
@@ -26,8 +32,13 @@ export async function POST(req: Request) {
     );
 
     if (error) {
+      // The database being unreachable is an availability problem, not a bad
+      // request — same 503 the GET path returns.
       console.error("Leaderboard insert error:", error);
-      return NextResponse.json({ error: "DB error" }, { status: 500 });
+      return NextResponse.json(
+        { error: "Leaderboard is temporarily unavailable" },
+        { status: 503 }
+      );
     }
 
     return NextResponse.json({ ok: true });
@@ -37,6 +48,14 @@ export async function POST(req: Request) {
 }
 
 export async function GET(req: Request) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json(
+      { ...EMPTY, error: "Leaderboard is temporarily unavailable" },
+      { status: 503 }
+    );
+  }
+
   const { searchParams } = new URL(req.url);
   const puzzle = searchParams.get("puzzle");
 
@@ -51,32 +70,28 @@ export async function GET(req: Request) {
       .order("created_at", { ascending: true })
       .limit(20);
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error) {
+      console.error("Daily leaderboard read error:", error);
+      return NextResponse.json(
+        { ...EMPTY, error: "Leaderboard is temporarily unavailable" },
+        { status: 503 }
+      );
+    }
     return NextResponse.json({ entries: data });
   }
 
   // All-time leaderboard: most wins
-  const { data, error } = await supabase
-    .from("leaderboard")
-    .select("username, user_id");
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-
-  // Aggregate wins and avg guesses per user
-  const userMap = new Map<string, { username: string; wins: number; totalGuesses: number; games: number }>();
-  for (const row of data ?? []) {
-    const key = row.user_id;
-    if (!userMap.has(key)) {
-      userMap.set(key, { username: row.username, wins: 0, totalGuesses: 0, games: 0 });
-    }
-    const u = userMap.get(key)!;
-    u.games++;
-  }
-
-  // Need full data for wins calculation
-  const { data: fullData } = await supabase
+  const { data: fullData, error } = await supabase
     .from("leaderboard")
     .select("user_id, username, guesses, won");
+
+  if (error) {
+    console.error("All-time leaderboard read error:", error);
+    return NextResponse.json(
+      { ...EMPTY, error: "Leaderboard is temporarily unavailable" },
+      { status: 503 }
+    );
+  }
 
   const allTimeMap = new Map<string, { username: string; wins: number; totalGuesses: number; games: number }>();
   for (const row of fullData ?? []) {
